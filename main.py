@@ -1,7 +1,6 @@
 import pymongo
 from password import *
 
-
 def get_data():
     client = pymongo.MongoClient(link)
     db = client.get_database(database)
