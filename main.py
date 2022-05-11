@@ -5,7 +5,7 @@ from flask import *
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST', 'GET'])
 def get_data():
     client = pymongo.MongoClient(link)
     db = client.get_database(database)
@@ -14,10 +14,20 @@ def get_data():
         for value in doc.values():
             print(value)
     client.close()
+    return 'all_users'
 
-    return 'all users'
+
+@app.route('/add/<name>', methods=['POST', 'GET'])
+def post_data(name):
+    client = pymongo.MongoClient(link)
+    db = client.get_database(database)
+    col = db.get_collection('user')
+    add = {"name": name}
+    col.insert_one(add)
+    client.close()
+
+    return 'add '+name
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)
-
