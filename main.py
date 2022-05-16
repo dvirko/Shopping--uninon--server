@@ -1,6 +1,7 @@
 import pymongo
 from bson import json_util
-
+import json
+from bson import ObjectId
 from password import *
 from flask import *
 
@@ -15,7 +16,7 @@ def get_data():
     for doc in col.find():
         for value in doc.values():
             print(value)
-    return jsonify(json_util.dumps(list(col.find())))
+    return jsonify(json.loads(json_util.dumps(col.find())))
 
 
 @app.route('/add/<name>', methods=['POST', 'GET'])
