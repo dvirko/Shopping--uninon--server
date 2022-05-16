@@ -16,7 +16,7 @@ def get_data():
     for doc in col.find():
         for value in doc.values():
             print(value)
-    return jsonify(json.loads(json_util.dumps(col.find())))
+    return jsonify([doc for doc in col.find()])
 
 
 @app.route('/add/<name>', methods=['POST', 'GET'])
